@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0d1117;
+  --foreground: #f3f4f6;
+  --muted: #9ca3af;
+  --border: #1f2937;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body {
+  min-height: 100%;
+  background: radial-gradient(circle at 20% -10%, #15372f 0%, #0d1117 45%),
+    radial-gradient(circle at 100% 0%, #1d2634 0%, #0d1117 38%), #0d1117;
+  color: var(--foreground);
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: #10b981;
+  color: #04130d;
+}
