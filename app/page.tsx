@@ -1,166 +1,112 @@
-import Link from "next/link";
-import { ArrowRight, LineChart, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowRight, ChartColumnBig, CircleDollarSign, Gauge, ScanSearch } from "lucide-react";
+import type { Metadata } from "next";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { PricingCard } from "@/components/ui/pricing-card";
 
-const faqs = [
-  {
-    q: "How is this different from generic market research tools?",
-    a: "This platform focuses on AI agent economics: demand momentum, competition saturation, activation friction, and quantified value-creation potential. It is designed for builders deciding what to ship next, not investors hunting headlines."
-  },
-  {
-    q: "Who is this for?",
-    a: "Technical founders and product managers at early-stage AI companies who need to validate whether an agent idea solves an expensive business problem before committing roadmap and GTM budget."
-  },
-  {
-    q: "What data does the analyzer use?",
-    a: "It combines market-intelligence signals from GitHub, Hacker News, and Reddit with your own customer profile inputs to estimate demand strength, pricing readiness, and expected payback period."
-  },
-  {
-    q: "Why focus on value creation more than value capture?",
-    a: "In early markets, teams that create measurable economic value win distribution, trust, and retention. Value capture follows once the product is tied to hard outcomes and switching costs."
-  }
-];
+const paymentLink = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK;
 
-export default function HomePage(): React.JSX.Element {
+export const metadata: Metadata = {
+  title: "The Agent Economy Is Not What You Think",
+  description:
+    "Most AI agent startups chase demos and burn runway. This tool helps founders validate real economic value creation before market hype resets."
+};
+
+export default function HomePage() {
   return (
-    <main className="mx-auto max-w-6xl px-5 pb-16 pt-8 sm:px-6 lg:px-8">
-      <header className="flex items-center justify-between py-3">
-        <div className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-md border border-zinc-700 bg-zinc-900/70 text-emerald-400">
-            <LineChart className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-zinc-100">Agent Economy Analyzer</p>
-            <p className="text-xs text-zinc-400">AI-agent value creation intelligence</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary">$15/mo</Badge>
-          <Button asChild variant="outline" size="sm">
-            <Link href="/dashboard">Open Dashboard</Link>
-          </Button>
-        </div>
-      </header>
-
-      <section className="relative mt-8 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/65 p-8 shadow-2xl shadow-emerald-950/20 sm:p-12">
-        <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-emerald-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-28 left-0 h-56 w-56 rounded-full bg-sky-500/15 blur-3xl" />
-
-        <Badge>Research & Analysis Tool</Badge>
-        <h1 className="mt-5 max-w-4xl text-3xl font-semibold leading-tight text-zinc-100 sm:text-5xl">
-          The Agent Economy Is Not What You Think: Why Value Creation Matters More Than Value Capture
-        </h1>
-        <p className="mt-5 max-w-3xl text-base text-zinc-300 sm:text-lg">
-          $50B+ is flooding into AI agents, but most products still optimize for demos instead of economic outcomes. This tool helps you identify where
-          real value can be created, measured, and monetized before hype-driven positioning collapses.
-        </p>
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button asChild size="lg">
-            <Link href="/dashboard">
-              Analyze My Opportunity
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-          <Button asChild size="lg" variant="outline">
-            <a href="#pricing">See Pricing</a>
-          </Button>
-        </div>
-      </section>
-
-      <section className="mt-12 grid gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <TrendingUp className="h-4 w-4 text-emerald-400" />
-              Problem
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-zinc-300">
-            Founders are shipping agent products against vanity demand signals, then discovering too late that customers won’t pay for workflow novelty.
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Sparkles className="h-4 w-4 text-emerald-400" />
-              Solution
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-zinc-300">
-            Score opportunities using market momentum, behavior patterns, and value impact projections to prioritize use cases with clear economic gravity.
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
-              Who Pays
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-zinc-300">
-            Technical founders and product managers at early-stage AI companies validating value proposition against market demand, not investor excitement.
-          </CardContent>
-        </Card>
-      </section>
-
-      <section className="mt-12 grid gap-6 lg:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>What the platform analyzes</CardTitle>
-            <CardDescription>Built for the `ai-agents` niche and tuned for early-stage product decisions.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-3 text-sm text-zinc-300">
-              <li>• Market-signal momentum from open technical and founder channels.</li>
-              <li>• User behavior proxies that indicate urgency versus curiosity.</li>
-              <li>• Economic impact metrics that estimate payback and implementation cost.</li>
-              <li>• Opportunity ranking that weights value creation over feature surface area.</li>
-              <li>• Actionable execution sequence to run experiments with measurable upside.</li>
-            </ul>
-          </CardContent>
-        </Card>
-        <Card id="pricing">
-          <CardHeader>
-            <CardTitle>Pricing</CardTitle>
-            <CardDescription>One simple tier for teams validating agent opportunities.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="rounded-xl border border-emerald-700/40 bg-emerald-500/10 p-5">
-              <p className="text-sm uppercase tracking-wide text-emerald-300">Pro</p>
-              <p className="mt-2 text-4xl font-semibold text-zinc-100">
-                $15<span className="text-base font-normal text-zinc-400">/month</span>
-              </p>
-              <ul className="mt-4 space-y-2 text-sm text-zinc-200">
-                <li>• Full dashboard with five opportunity scores</li>
-                <li>• Economic impact calculator and payback model</li>
-                <li>• Market signal ingestion across multiple sources</li>
-                <li>• Instant access via Lemon Squeezy checkout</li>
-              </ul>
-              <Button asChild className="mt-5 w-full">
-                <Link href="/dashboard">Start Pro Analysis</Link>
-              </Button>
+    <main className="grid-bg min-h-screen px-6 pb-20 pt-10 md:px-12 lg:px-20">
+      <div className="mx-auto max-w-6xl space-y-20">
+        <section className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          <div className="space-y-6">
+            <p className="inline-flex rounded-full border border-slate-700 bg-slate-900/80 px-3 py-1 text-xs uppercase tracking-[0.18em] text-slate-300">
+              ai-agents research and analysis tool
+            </p>
+            <h1 className="font-[var(--font-display)] text-4xl font-bold leading-tight text-slate-100 md:text-5xl xl:text-6xl">
+              The Agent Economy Is Not What You Think: <span className="shine">Value Creation Beats Value Capture</span>
+            </h1>
+            <p className="max-w-2xl text-lg text-slate-300">
+              $50B+ is flooding into AI agents, but most teams are still optimizing pitch decks instead of customer outcomes. This platform helps technical founders and product managers test where real economic value exists before they burn six months on the wrong workflow.
+            </p>
+            <div className="flex flex-wrap items-center gap-3 text-sm text-slate-300">
+              <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1">Market signal analytics</span>
+              <span className="rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-1">Economic impact modeling</span>
+              <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1">Hype-risk detection</span>
             </div>
-          </CardContent>
-        </Card>
-      </section>
+          </div>
 
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold text-zinc-100">Frequently Asked Questions</h2>
-        <div className="mt-5 grid gap-4 md:grid-cols-2">
-          {faqs.map((item) => (
-            <Card key={item.q}>
-              <CardHeader>
-                <CardTitle className="text-base">{item.q}</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-zinc-300">{item.a}</CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
+          <PricingCard paymentLink={paymentLink} />
+        </section>
+
+        <section className="space-y-8">
+          <h2 className="text-3xl font-semibold text-slate-100">The Problem Most Agent Founders Miss</h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            <article className="rounded-xl border border-slate-800 bg-[#111926]/85 p-5">
+              <Gauge className="mb-4 size-5 text-rose-300" />
+              <h3 className="mb-2 text-lg font-semibold text-slate-100">Demo-First Roadmaps</h3>
+              <p className="text-sm text-slate-300">
+                Teams over-index on visible autonomy and under-invest in measurable customer outcomes like error reduction, cycle time compression, and margin lift.
+              </p>
+            </article>
+            <article className="rounded-xl border border-slate-800 bg-[#111926]/85 p-5">
+              <ScanSearch className="mb-4 size-5 text-amber-300" />
+              <h3 className="mb-2 text-lg font-semibold text-slate-100">No Demand Validation</h3>
+              <p className="text-sm text-slate-300">
+                Investor enthusiasm masks weak buyer urgency. Without workflow-level demand signals, teams ship capabilities buyers never budget for.
+              </p>
+            </article>
+            <article className="rounded-xl border border-slate-800 bg-[#111926]/85 p-5">
+              <CircleDollarSign className="mb-4 size-5 text-sky-300" />
+              <h3 className="mb-2 text-lg font-semibold text-slate-100">Capture Before Creation</h3>
+              <p className="text-sm text-slate-300">
+                Overpricing early destroys adoption. Winning products leave enough economic upside with the buyer so expansion happens naturally.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section className="space-y-8">
+          <h2 className="text-3xl font-semibold text-slate-100">How This Tool Helps You Build the Right Agent</h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            <article className="rounded-xl border border-slate-800 bg-[#111926]/85 p-6">
+              <ChartColumnBig className="mb-4 size-6 text-emerald-300" />
+              <h3 className="mb-2 text-xl font-semibold text-slate-100">Market Signal Dashboard</h3>
+              <p className="text-sm leading-6 text-slate-300">
+                Compare demand growth, retention strength, willingness to pay, and hype exposure across high-volume agent categories. Identify where durable value is likely to compound.
+              </p>
+            </article>
+            <article className="rounded-xl border border-slate-800 bg-[#111926]/85 p-6">
+              <ArrowRight className="mb-4 size-6 text-emerald-300" />
+              <h3 className="mb-2 text-xl font-semibold text-slate-100">Economic Impact Analyzer</h3>
+              <p className="text-sm leading-6 text-slate-300">
+                Input your assumptions and immediately see opportunity score, value capture ratio, execution margin, and recommended next moves for product scope and pricing.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section className="space-y-8">
+          <h2 className="text-3xl font-semibold text-slate-100">FAQ</h2>
+          <div className="space-y-4">
+            <article className="rounded-xl border border-slate-800 bg-[#111926]/85 p-5">
+              <h3 className="text-lg font-semibold text-slate-100">Who is this for?</h3>
+              <p className="mt-2 text-sm text-slate-300">
+                Technical founders and product managers at early-stage AI companies who need to validate that their agent roadmap maps to real economic demand.
+              </p>
+            </article>
+            <article className="rounded-xl border border-slate-800 bg-[#111926]/85 p-5">
+              <h3 className="text-lg font-semibold text-slate-100">How does paywall access work?</h3>
+              <p className="mt-2 text-sm text-slate-300">
+                Pay through Stripe hosted checkout, then unlock dashboard access with the same billing email. A secure cookie grants access for 30 days.
+              </p>
+            </article>
+            <article className="rounded-xl border border-slate-800 bg-[#111926]/85 p-5">
+              <h3 className="text-lg font-semibold text-slate-100">What do I get for $15/month?</h3>
+              <p className="mt-2 text-sm text-slate-300">
+                Full access to market signal comparisons, use-case analysis, opportunity and risk scoring, and practical recommendations to improve product-market fit.
+              </p>
+            </article>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

@@ -11,24 +11,26 @@ NICHE: ai-agents
 PRICE: $$15/mo
 
 ARCHITECTURE SPEC:
-A Next.js web app with a dashboard for analyzing AI agent market opportunities through data visualization and scoring algorithms. Uses Supabase for data storage, integrates multiple APIs for market intelligence, and implements tiered access with Lemon Squeezy payments.
+A Next.js SaaS application that aggregates market data, user behavior analytics, and economic metrics to help AI agent builders validate their value propositions. The tool uses data visualization dashboards and automated analysis to distinguish between genuine market opportunities and hype-driven trends.
 
 PLANNED FILES:
 - app/page.tsx
 - app/dashboard/page.tsx
-- app/api/analyze/route.ts
+- app/api/auth/[...nextauth]/route.ts
 - app/api/webhooks/lemonsqueezy/route.ts
-- components/MarketAnalyzer.tsx
-- components/OpportunityScorer.tsx
-- components/ValueMetrics.tsx
-- components/PaywallModal.tsx
-- lib/supabase.ts
+- app/api/market-data/route.ts
+- app/api/analysis/route.ts
+- components/ui/dashboard.tsx
+- components/ui/market-signals-chart.tsx
+- components/ui/value-creation-metrics.tsx
+- components/ui/pricing-card.tsx
+- lib/auth.ts
 - lib/lemonsqueezy.ts
-- lib/market-data.ts
-- lib/scoring-algorithm.ts
-- types/analysis.ts
+- lib/database.ts
+- lib/market-analysis.ts
+- prisma/schema.prisma
 
-DEPENDENCIES: next, react, typescript, tailwindcss, @supabase/supabase-js, @lemonsqueezy/lemonsqueezy.js, recharts, lucide-react, @radix-ui/react-dialog, zod, axios
+DEPENDENCIES: next, react, typescript, tailwindcss, prisma, @prisma/client, next-auth, @auth/prisma-adapter, @lemonsqueezy/lemonsqueezy.js, recharts, lucide-react, axios, zod, stripe
 
 REQUIREMENTS:
 - Next.js 15 with App Router (app/ directory)
@@ -36,7 +38,7 @@ REQUIREMENTS:
 - Tailwind CSS v4
 - shadcn/ui components (npx shadcn@latest init, then add needed components)
 - Dark theme ONLY — background #0d1117, no light mode
-- Lemon Squeezy checkout overlay for payments
+- Stripe Payment Link for payments (hosted checkout — use the URL directly as the Buy button href)
 - Landing page that converts: hero, problem, solution, pricing, FAQ
 - The actual tool/feature behind a paywall (cookie-based access after purchase)
 - Mobile responsive
@@ -56,9 +58,13 @@ REQUIREMENTS:
   to package.json dependencies and re-run npm install + npm run build until it passes.
 
 ENVIRONMENT VARIABLES (create .env.example):
-- NEXT_PUBLIC_LEMON_SQUEEZY_STORE_ID
-- NEXT_PUBLIC_LEMON_SQUEEZY_PRODUCT_ID
-- LEMON_SQUEEZY_WEBHOOK_SECRET
+- NEXT_PUBLIC_STRIPE_PAYMENT_LINK  (full URL, e.g. https://buy.stripe.com/test_XXX)
+- NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY  (pk_test_... or pk_live_...)
+- STRIPE_WEBHOOK_SECRET  (set when webhook is wired)
+
+BUY BUTTON RULE: the Buy button's href MUST be `process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK`
+used as-is — do NOT construct URLs from a product ID, do NOT prepend any base URL,
+do NOT wrap it in an embed iframe. The link opens Stripe's hosted checkout directly.
 
 After creating all files:
 1. Run: npm install
@@ -68,8 +74,3 @@ After creating all files:
 
 Do NOT use placeholder text. Write real, helpful content for the landing page
 and the tool itself. The tool should actually work and provide value.
-
-
-PREVIOUS ATTEMPT FAILED WITH:
-Codex timed out after 600s
-Please fix the above errors and regenerate.
